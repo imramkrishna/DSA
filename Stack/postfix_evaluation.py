@@ -6,7 +6,7 @@ def evaluate():
     for e in expression:
         if e not in operands:
             stack.append(float(e))
-        else:
+        else: 
             val1=stack.pop()
             val2=stack.pop()
             if e=="+":
