@@ -1,5 +1,7 @@
 #include<iostream>
 #include<stdlib.h>
+#include<chrono>
+#define MAX 10000000
 void swap(int *p, int *q){
     int temp=*p;
     *p=*q;
@@ -70,9 +72,18 @@ void quickSort(int A[],int l,int r){
     }
 }
 int main(){
-    int i,n;
-    int newarr[]={11,10,13,4,2,9,18};
-    display(newarr,7);
-    quickSort(newarr,0,7);
-    display(newarr,7);
+    int i,n,A[MAX];
+    std::cout<<"Enter n : ";
+    std::cin>>n;
+    for(int i=0;i<n;i++){
+        A[i]=rand()%100000;
+    }
+    display(A,n);
+    auto start=std::chrono::steady_clock::now();
+    mergeSort(A,0,7);
+    auto end=std::chrono::steady_clock::now();
+    auto time_taken=std::chrono::duration_cast<std::chrono::microseconds>(end-start).count();
+    display(A,n);
+    std::cout<<"Time taken : "<<time_taken<<" microseconds\n";
+    main();
 }
