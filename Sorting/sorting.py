@@ -1,3 +1,8 @@
+import random
+import time
+def generate_array(length):
+    arr=random.choices(range(0,100000),k=length)
+    return arr
 def swap(arr, index1, index2):
     temp = arr[index1]
     arr[index1] = arr[index2]
@@ -34,6 +39,18 @@ def insertion_sort(A):
             j=j-1
         A[j+1]=key
         return A
+insertion_sort_time={}
+
 def main():
-    print(insertion_sort([5,1,4,2,8]))
+    len=int(input("Enter length of array : "))
+    if(len==-1):
+        print(insertion_sort_time)
+        return insertion_sort_time
+    array=generate_array(len)
+    start_time=time.perf_counter()
+    selection_sort(array)
+    end_time=time.perf_counter()
+    insertion_sort_time[len]=end_time-start_time
+    print(insertion_sort_time)
+    main()
 main()

@@ -1,4 +1,8 @@
-
+import time
+import random
+def generate_array(length):
+    arr=random.choices(range(0,100000),k=length)
+    return arr
 def merge_sort(arr):
     if len(arr) <= 1:
         return arr
@@ -24,5 +28,18 @@ def merge(left, right):
     return result
 
 
-print(merge_sort([38, 27, 43, 3, 9, 82, 10]))
-# [3, 9, 10, 27, 38, 43, 82]    
+sort_time={}
+
+def main():
+    len=int(input("Enter length of array : "))
+    if(len==-1):
+        print(sort_time)
+        return sort_time
+    array=generate_array(len)
+    start_time=time.perf_counter()
+    merge_sort(array)
+    end_time=time.perf_counter()
+    sort_time[len]=end_time-start_time
+    print(sort_time)
+    main()
+main()
