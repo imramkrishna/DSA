@@ -15,7 +15,7 @@ def bubble_sort(A):
     for i in range(len(A)):
         for j in range(len(A)-i-1):
             if A[j]>A[j+1]:
-                elegant_swap(A,j,i)
+                elegant_swap(A,j,j+1)
     return A
 
 def selection_sort(A):
@@ -38,7 +38,7 @@ def insertion_sort(A):
             A[j+1]=A[j]
             j=j-1
         A[j+1]=key
-        return A
+    return A
 insertion_sort_time={}
 
 def main():
@@ -48,7 +48,7 @@ def main():
         return insertion_sort_time
     array=generate_array(len)
     start_time=time.perf_counter()
-    selection_sort(array)
+    insertion_sort(array)
     end_time=time.perf_counter()
     insertion_sort_time[len]=end_time-start_time
     print(insertion_sort_time)
