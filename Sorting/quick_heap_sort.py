@@ -49,27 +49,18 @@ def heap_sort(A):
         max_heapify(A,i,0)
     return A
 
-quick_sort_time={}
 heap_sort_time={}
 
 def main():
     length=int(input("Enter length of array : "))
     if(length==-1):
-        print("quick_sort =",quick_sort_time)
         print("heap_sort =",heap_sort_time)
         return
     array=generate_array(length)
-    quick_array=array[:]
     start_time=time.perf_counter()
-    quick_sort(quick_array)
-    end_time=time.perf_counter()
-    quick_sort_time[length]=end_time-start_time
-    heap_array=array[:]
-    start_time=time.perf_counter()
-    heap_sort(heap_array)
+    heap_sort(array)
     end_time=time.perf_counter()
     heap_sort_time[length]=end_time-start_time
-    print("quick_sort =",quick_sort_time)
-    print("heap_sort =",heap_sort_time)
+    print("Heap_Sort =",heap_sort_time)
     main()
 main()
