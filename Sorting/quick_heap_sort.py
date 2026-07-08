@@ -59,13 +59,11 @@ def main():
         print("heap_sort =",heap_sort_time)
         return
     array=generate_array(length)
-
     quick_array=array[:]
     start_time=time.perf_counter()
     quick_sort(quick_array)
     end_time=time.perf_counter()
     quick_sort_time[length]=end_time-start_time
-
     heap_array=array[:]
     start_time=time.perf_counter()
     heap_sort(heap_array)
