@@ -5,26 +5,24 @@ def generate_array(length):
     arr=random.choices(range(0,100000),k=length)
     return arr
 
-def partition(A,low,high):
-    pivot_index=random.randint(low,high)
-    A[pivot_index],A[high]=A[high],A[pivot_index]
-    pivot=A[high]
-    i=low-1
-    for j in range(low,high):
-        if A[j]<=pivot:
-            i+=1
-            A[i],A[j]=A[j],A[i]
-    A[i+1],A[high]=A[high],A[i+1]
-    return i+1
+def partition(arr, low, high):
+    pivot = arr[high]
+    i = low - 1
+    for j in range(low, high):
+        if arr[j] <= pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    return i + 1
 
-def quick_sort(A,low=0,high=None):
+def quick_sort(arr, low=0, high=None):
     if high is None:
-        high=len(A)-1
-    if low<high:
-        p=partition(A,low,high)
-        quick_sort(A,low,p-1)
-        quick_sort(A,p+1,high)
-    return A
+        high = len(arr) - 1
+    if low < high:
+        p = partition(arr, low, high)
+        quick_sort(arr, low, p - 1)
+        quick_sort(arr, p + 1, high)
+    return arr
 
 def max_heapify(A,heap_size,i):
     left=2*i+1
@@ -52,15 +50,6 @@ def heap_sort(A):
 heap_sort_time={}
 
 def main():
-    length=int(input("Enter length of array : "))
-    if(length==-1):
-        print("heap_sort =",heap_sort_time)
-        return
-    array=generate_array(length)
-    start_time=time.perf_counter()
-    heap_sort(array)
-    end_time=time.perf_counter()
-    heap_sort_time[length]=end_time-start_time
-    print("Heap_Sort =",heap_sort_time)
-    main()
-main()
+    arr=[22,18,9,21,19,14,39,29,63,8]
+    
+
