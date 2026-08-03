@@ -110,12 +110,18 @@ int main() {
     struct BST *temp;
 
     do {
-        printf("\n1.INSERT\n2.DELETE\n3.SEARCH\n");
+        printf("\n0.CREATE\n1.INSERT\n2.DELETE\n3.SEARCH\n");
         printf("4.MAXIMUM\n5.MINIMUM\n6.TRAVERSAL\n7.EXIT\n");
         printf("Choice? ");
         scanf("%d", &choice);
 
         switch (choice) {
+            case 0:
+                int A[]={70,40,75,77,65,30,28,72};
+                for(int i=0;i<8;i++){
+                    root=insert(root,A[i]);
+                }
+                break;
             case 1:
                 printf("Element? ");
                 scanf("%d", &element);
