@@ -104,14 +104,32 @@ struct BST* delete_node(struct BST *root, int key) {
     return root;
 }
 
+void inorder_height(struct BST *root,int *max,int height ) {
+    if (root != NULL) {
+        inorder_height(root->left,max,height + 1);
+        inorder_height(root->right,max,height+1);
+        
+    }
+    printf("%d",height);
+
+    if(height > max){
+        *max = height;
+    }
+
+}
+int bst_height(struct BST * root){
+    
+}
+
 int main() {
-    int choice, element;
+    int choice, element,max=0;
+    int *max_ptr= &max;
     struct BST *root = NULL;
     struct BST *temp;
 
     do {
         printf("\n0.CREATE\n1.INSERT\n2.DELETE\n3.SEARCH\n");
-        printf("4.MAXIMUM\n5.MINIMUM\n6.TRAVERSAL\n7.EXIT\n");
+        printf("4.MAXIMUM\n5.MINIMUM\n6.TRAVERSAL\n7.EXIT\n8.HEIGHT");
         printf("Choice? ");
         scanf("%d", &choice);
 
@@ -183,7 +201,9 @@ int main() {
             case 7:
                 printf("BYE!\n");
                 break;
-
+            case 8:
+                inorder_height(root,*max_ptr,0);
+                break;
             default:
                 printf("Invalid choice!\n");
                 break;
