@@ -1,7 +1,20 @@
-import type{ LogEntry,Edge } from "./types.js";
+import type { Edge, LogEntry } from "./types.js";
 import chalk from "chalk";
 import Table from "cli-table3";
-export function renderEdgeTable(log: LogEntry[], currentIndex: number): string {
+
+type RenderEdgeTableOptions = {
+  title: string;
+  rejectedLabel: string;
+};
+
+export function renderEdgeTable(
+  log: LogEntry[],
+  currentIndex: number,
+  options: RenderEdgeTableOptions = {
+    title: "Edges sorted by weight (Kruskal's algorithm)",
+    rejectedLabel: "cycle, skipped",
+  },
+): string {
   const table = new Table({
     head: [chalk.cyan.bold("Edge"), chalk.cyan.bold("Weight"), chalk.cyan.bold("Status")],
     style: { head: [], border: [] },
@@ -25,7 +38,7 @@ export function renderEdgeTable(log: LogEntry[], currentIndex: number): string {
       edgeStr = chalk.green(edgeStr);
       weightStr = chalk.green(weightStr);
     } else {
-      status = chalk.red.bold("\u2717 cycle, skipped");
+      status = chalk.red.bold(`\u2717 ${options.rejectedLabel}`);
       edgeStr = chalk.red(edgeStr);
       weightStr = chalk.red(weightStr);
     }
@@ -33,7 +46,7 @@ export function renderEdgeTable(log: LogEntry[], currentIndex: number): string {
     table.push([edgeStr, weightStr, status]);
   });
 
-  const title = chalk.bold("Edges sorted by weight (Kruskal's algorithm)");
+  const title = chalk.bold(options.title);
   return `${title}\n${table.toString()}`;
 }
 

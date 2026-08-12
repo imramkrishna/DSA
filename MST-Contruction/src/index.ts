@@ -1,9 +1,11 @@
-import { animateMst } from "./animation.js";
+import { animateMst, animatePrimMst } from "./animation.js";
 import parseDelayArg from "./delay.js";
-import type{ Edge } from "./types.js";
+import type { Edge } from "./types.js";
 
 async function main() {
   const delayMs = parseDelayArg();
+  const usePrim = process.argv.includes("--prim");
+  const useKruskal = process.argv.includes("--kruskal");
   const nodes = ["A", "B", "C", "D", "E", "F"];
   const edges: Edge[] = [
     [4, "A", "B"],
@@ -17,7 +19,16 @@ async function main() {
     [4, "E", "F"],
   ];
 
-  await animateMst(nodes, edges, delayMs);
+  if (usePrim) {
+    await animatePrimMst(nodes, edges, delayMs);
+    return;
+  } else if (useKruskal) {
+    await animateMst(nodes, edges, delayMs);
+    return;
+  } else {
+    console.log("Please specify an algorithm")
+    return
+  }
 }
 
 main();
