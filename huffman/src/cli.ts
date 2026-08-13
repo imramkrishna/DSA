@@ -1,19 +1,28 @@
-#!/usr/bin/env node
 import * as fs from "fs";
 import * as path from "path";
 import { encodeBuffer } from "./encode.js";
 import { decodeBuffer } from "./decode.js";
 
 function printUsage(): void {
-  console.log(`huffman-ts - Huffman coding file compressor
+  console.log(`huffman-ts — Huffman coding file compressor
 
 Usage:
   huffman-ts encode <input file> [output file]
-  huffman-ts decode <input file>  [output file]
+  huffman-ts decode <input file> [output file]
 
-If output file is omitted:
-  encode -> <input file>.huf
-  decode -> <input file> with .huf stripped (or .out appended if no .huf suffix)
+When encoding:
+  - If [output file] is omitted, the compressor writes <input file>.huf
+
+When decoding:
+  - If [output file] is omitted, the decompressor removes the .huf suffix
+    from the input filename (or writes <input>.out if no .huf suffix exists).
+  - To write decoded bytes to stdout instead of a file, pass '-' or '--stdout'
+
+Examples:
+  npm run encode -- example.txt           # -> example.txt.huf
+  npm run encode -- example.txt out.huf   # -> out.huf
+  npm run decode -- example.txt.huf       # -> example.txt
+  npm run decode -- example.txt.huf -     # -> prints decoded bytes to stdout
 `);
 }
 
