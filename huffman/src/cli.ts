@@ -63,13 +63,20 @@ function main(): void {
     console.log(`  Distinct symbols: ${result.distinctSymbols}`);
     console.log(`  Space saved: ${ratio}%`);
   } else {
-    const outputPath = path.resolve(outputArg ?? defaultDecodeOutput(inputArg));
     const result = decodeBuffer(data);
-    fs.writeFileSync(outputPath, result.output);
-
-    console.log(`Decoded: ${inputPath}`);
-    console.log(`  -> ${outputPath}`);
-    console.log(`  Output size: ${formatBytes(result.originalSize)}`);
+    const wantsStdout = outputArg === "-" || outputArg === "--stdout";
+    if (wantsStdout) {
+      // Write raw bytes to stdout
+      process.stdout.write(result.output);
+      console.log();
+      console.log(`Decoded: ${inputPath} -> stdout`);
+    } else {
+      const outputPath = path.resolve(outputArg ?? defaultDecodeOutput(inputArg));
+      fs.writeFileSync(outputPath, result.output);
+      console.log(`Decoded: ${inputPath}`);
+      console.log(`  -> ${outputPath}`);
+      console.log(`  Output size: ${formatBytes(result.originalSize)}`);
+    }
   }
 }
 

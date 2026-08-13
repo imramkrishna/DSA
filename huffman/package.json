@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "encode": "ts-node src/cli.ts encode",
-    "decode": "ts-node src/cli.ts decode",
+    "encode": "node --loader ts-node/esm src/cli.ts encode",
+    "decode": "node --loader ts-node/esm src/cli.ts decode",
     "start": "node dist/cli.js"
   },
   "bin": {

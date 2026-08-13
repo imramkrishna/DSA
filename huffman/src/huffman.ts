@@ -1,10 +1,3 @@
-/**
- * Core Huffman coding data structures and algorithms.
- *
- * Works over byte values (0-255), so it can compress/decompress any
- * binary file, not just text.
- */
-
 export interface HuffmanNode {
   byte: number | null; // null for internal nodes
   freq: number;
@@ -12,10 +5,7 @@ export interface HuffmanNode {
   right: HuffmanNode | null;
 }
 
-/** Map from byte value -> bit string (e.g. "1011"). */
 export type CodeTable = Map<number, string>;
-
-/** Map from byte value -> occurrence count. */
 export type FrequencyTable = Map<number, number>;
 
 function makeLeaf(byte: number, freq: number): HuffmanNode {
@@ -26,11 +16,7 @@ function makeInternal(left: HuffmanNode, right: HuffmanNode): HuffmanNode {
   return { byte: null, freq: left.freq + right.freq, left, right };
 }
 
-/**
- * Minimal binary min-heap keyed by node frequency.
- * Ties are broken by insertion order (stable), which keeps tree shape
- * deterministic given the same input frequencies.
- */
+// Minimal binary min-heap keyed by node frequency.
 class MinHeap<T> {
   private items: { value: T; freq: number; order: number }[] = [];
   private counter = 0;
@@ -89,7 +75,6 @@ class MinHeap<T> {
   }
 }
 
-/** Count how many times each byte value occurs in the buffer. */
 export function buildFrequencyTable(data: Buffer): FrequencyTable {
   const freq: FrequencyTable = new Map();
   for (const byte of data) {
@@ -98,11 +83,6 @@ export function buildFrequencyTable(data: Buffer): FrequencyTable {
   return freq;
 }
 
-/**
- * Build a Huffman tree from a frequency table.
- * Returns null if the input is empty (nothing to encode).
- * Returns a single leaf node if there is only one distinct byte value.
- */
 export function buildHuffmanTree(freq: FrequencyTable): HuffmanNode | null {
   if (freq.size === 0) return null;
 
@@ -111,8 +91,7 @@ export function buildHuffmanTree(freq: FrequencyTable): HuffmanNode | null {
     heap.push(makeLeaf(byte, count), count);
   }
 
-  // Special case: only one distinct symbol. Give it a 1-bit code by
-  // pairing it with a phantom node so encode/decode still works.
+  // Special case: only one distinct symbol. Pair it with a phantom node.
   if (heap.size === 1) {
     const only = heap.pop();
     const root = makeInternal(only, makeLeaf(-1, 0));
@@ -129,18 +108,13 @@ export function buildHuffmanTree(freq: FrequencyTable): HuffmanNode | null {
   return heap.pop();
 }
 
-/** Walk the tree to produce a bit-string code for every byte value. */
 export function generateCodes(root: HuffmanNode | null): CodeTable {
   const codes: CodeTable = new Map();
   if (!root) return codes;
-
   const stack: { node: HuffmanNode; prefix: string }[] = [{ node: root, prefix: "" }];
   while (stack.length > 0) {
     const { node, prefix } = stack.pop()!;
     if (node.byte !== null) {
-      // Guard against the single-symbol phantom-pair case: root itself
-      // being a leaf never happens here because buildHuffmanTree always
-      // returns an internal node when freq.size >= 1.
       codes.set(node.byte, prefix.length > 0 ? prefix : "0");
       continue;
     }
