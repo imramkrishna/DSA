@@ -63,5 +63,5 @@ export function renderMstSummary(mstEdges: Edge[]): string {
   }
 
   const title = chalk.bold("Resulting Minimum Spanning Tree");
-  return `${title}\n${table.toString()}\n\n${chalk.bgGreen.black.bold(` Total MST weight: ${total} `)}`;
+  return `${title}\n${table.toString()}\n${chalk.bgGreen.black.bold(` Total MST weight: ${total} `)}`;
 }

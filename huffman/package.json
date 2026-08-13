@@ -1,0 +1,27 @@
+{
+  "name": "huffman-ts",
+  "version": "1.0.0",
+  "description": "Huffman coding file encoder/decoder in TypeScript",
+  "main": "dist/cli.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "encode": "ts-node src/cli.ts encode",
+    "decode": "ts-node src/cli.ts decode",
+    "start": "node dist/cli.js"
+  },
+  "bin": {
+    "huffman-ts": "dist/cli.js"
+  },
+  "keywords": [
+    "huffman",
+    "compression",
+    "typescript"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}

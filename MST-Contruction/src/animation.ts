@@ -22,7 +22,6 @@ export async function animateMst(nodes: string[], edges: Edge[], delayMs: number
     if (delayMs > 0) await sleep(delayMs);
   }
 
-  console.log();
   console.log(renderMstSummary(mstEdges));
 }
 
@@ -43,6 +42,5 @@ export async function animatePrimMst(nodes: string[], edges: Edge[], delayMs: nu
     if (delayMs > 0) await sleep(delayMs);
   }
 
-  console.log();
   console.log(renderMstSummary(mstEdges));
 }
